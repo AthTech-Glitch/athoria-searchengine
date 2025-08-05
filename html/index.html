@@ -1,0 +1,200 @@
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>ATHORIA | Ath Tech</title>  
+    <style>  
+        body {  
+            margin: 0;  
+            padding: 0;  
+            overflow: hidden;  
+            background: #1a1a2e url('https://i.imgur.com/2kMXKR1.jpg') no-repeat center center fixed;  
+            background-size: cover;  
+            display: flex;  
+            flex-direction: column;  
+            justify-content: center;  
+            align-items: center;  
+            height: 100vh;  
+            font-family: 'Arial', sans-serif;  
+            animation: fadeIn 1s ease-in-out;  
+        }  @keyframes fadeIn {  
+        from { opacity: 0; }  
+        to { opacity: 1; }  
+    }  
+
+    .welcome-text {  
+        position: absolute;  
+        top: 20%;  
+        font-size: 3em;  
+        color: white;  
+        text-align: center;  
+        text-shadow: 2px 2px 0px black;  
+        animation: fadeInText 1s ease-in-out forwards;  
+    }  
+
+    @keyframes fadeInText {  
+        from { opacity: 0; transform: translateY(-20px); }  
+        to { opacity: 1; transform: translateY(0); }  
+    }  
+
+    .logo {  
+        display: none;  
+        position: absolute;  
+        top: 35%;  
+        left: 50%;  
+        transform: translate(-50%, -50%);  
+        width: 150px;  
+        height: 150px;  
+        border-radius: 50%;  
+        background: #fff url('https://i.imgur.com/ou8jFMG.jpg') no-repeat center center;  
+        background-size: contain;  
+        animation: scaleIn 1s ease-in-out forwards;  
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);  
+    }  
+
+    @keyframes scaleIn {  
+        from { transform: translate(-50%, -50%) scale(0); }  
+        to { transform: translate(-50%, -50%) scale(1); }  
+    }  
+
+    /* AI Search Engine Styles */  
+    .search-container {  
+        display: none;  
+        position: absolute;  
+        top: 55%;  
+        left: 50%;  
+        transform: translate(-50%, -50%);  
+        width: 80%;  
+        max-width: 600px;  
+        background: rgba(0,0,0,0.7);  
+        padding: 20px;  
+        border-radius: 10px;  
+        animation: fadeIn 1.5s ease-in-out forwards;  
+    }  
+
+    .search-container h2 {  
+        color: white;  
+        text-align: center;  
+        margin-bottom: 15px;  
+        text-shadow: 1px 1px 2px black;  
+    }  
+
+    #search-input {  
+        width: 100%;  
+        padding: 12px;  
+        border: none;  
+        border-radius: 5px;  
+        background: rgba(255,255,255,0.9);  
+        font-size: 1em;  
+    }  
+
+    #search-button {  
+        width: 100%;  
+        padding: 12px;  
+        margin-top: 10px;  
+        background: #28a745;  
+        color: white;  
+        border: none;  
+        border-radius: 5px;  
+        font-size: 1em;  
+        cursor: pointer;  
+        transition: all 0.3s;  
+    }  
+
+    #search-button:hover {  
+        background: #218838;  
+        transform: scale(1.02);  
+    }  
+
+    #results {  
+        margin-top: 15px;  
+        max-height: 300px;  
+        overflow-y: auto;  
+    }  
+
+    .result-item {  
+        background: rgba(255,255,255,0.1);  
+        color: white;  
+        padding: 10px;  
+        margin: 5px 0;  
+        border-radius: 5px;  
+        border-left: 3px solid #28a745;  
+    }  
+
+    /* Hide scrollbar for cleaner look */  
+    #results::-webkit-scrollbar {  
+        display: none;  
+    }  
+</style>
+
+</head>  
+<body>  <div class="welcome-text">Welcome to Ath Tech</div>  
+<div class="logo"></div>  
+
+<!-- AI Search Engine -->  
+<div class="search-container">  
+    <h2>ATHORIA AI Search</h2>  
+    <input type="text" id="search-input" placeholder="Ask about AI, Ath Tech, or AGI...">  
+    <button id="search-button">Search</button>  
+    <div id="results"></div>  
+</div>  
+
+<script>  
+    // Animasi awal  
+    setTimeout(() => {  
+        document.querySelector('.welcome-text').style.display = 'none';  
+        document.querySelector('.logo').style.display = 'block';  
+    }, 2000);  
+
+    setTimeout(() => {  
+        document.querySelector('.search-container').style.display = 'block';  
+    }, 3000);  
+
+    // AI Search Engine Functionality  
+    const aiData = [  
+        "ATHORIA: Multi-modal AI Search by Ath Tech (Founder: Rafka Athaya)",  
+        "Ath Tech is building Artificial General Intelligence (AGI) to disrupt corporate systems.",  
+        "Current Project: AI-powered search engine with natural language understanding.",  
+        "Roadmap: Tsinghua University (China), KAIST (Korea), then full-time on Ath Tech.",  
+        "Fun Fact: The founder is 14 years old and inspired by Jensen Huang + Elon Musk."  
+    ];  
+
+    document.getElementById('search-button').addEventListener('click', search);  
+    document.getElementById('search-input').addEventListener('keypress', (e) => {  
+        if (e.key === 'Enter') search();  
+    });  
+
+    function search() {  
+        const query = document.getElementById('search-input').value.toLowerCase();  
+        const resultsContainer = document.getElementById('results');  
+        resultsContainer.innerHTML = '';  
+
+        if (!query) {  
+            resultsContainer.innerHTML = '<div class="result-item">Type something about Ath Tech or AI...</div>';  
+            return;  
+        }  
+
+        const results = aiData.filter(item => item.toLowerCase().includes(query));  
+
+        if (results.length > 0) {  
+            results.forEach(result => {  
+                const resultItem = document.createElement('div');  
+                resultItem.className = 'result-item';  
+                resultItem.textContent = result;  
+                resultsContainer.appendChild(resultItem);  
+            });  
+        } else {  
+            resultsContainer.innerHTML = '<div class="result-item">No results found. Try: "AI", "Ath Tech", or "AGI"</div>';  
+        }  
+    }  
+
+    // Sound effect (optional)  
+    const clickSound = new Audio('https://www.fesliyanstudios.com/play-mp3/387');  
+    document.getElementById('search-button').addEventListener('click', () => {  
+        clickSound.currentTime = 0;  
+        clickSound.play();  
+    });  
+</script>
+
+</body>  
+</html>
